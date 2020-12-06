@@ -36,7 +36,7 @@ function! s:read_from_ipynb()  "{{{
   let l:jupycent_file = fnamemodify(l:filename, ":r") . ".py"
   let l:jupycent_file_exists = filereadable(l:jupycent_file)
   if !l:jupycent_file_exists
-    let l:output = system(g:jupycent_command . " --to=py:percent "
+    call system(g:jupycent_command . " --to=py:percent "
           \ . "--output=" . shellescape(l:jupycent_file) . " "
           \ . shellescape(l:filename))
   endif
@@ -88,7 +88,7 @@ function! s:write_to_ipynb() abort  "{{{
   endif
   let l:jupycent_file = expand("<afile>:p")
   echo "Updating " . b:jupycent_ipynb_file . "..."
-  let l:output = system(g:jupycent_command . " --from=py:percent "
+  call system(g:jupycent_command . " --from=py:percent "
         \ . g:jupycent_to_ipynb_opts . " "
         \ . "--output " . shellescape(b:jupycent_ipynb_file) . " "
         \ . shellescape(l:jupycent_file))
@@ -125,7 +125,7 @@ function! JupycentSaveIpynb()  "{{{
     return
   endif
   let l:filename = expand("%:r") . ".ipynb"
-  let l:output = system(g:jupycent_command
+  call system(g:jupycent_command
         \ . " --from=py:percent "
         \ . g:jupycent_to_ipynb_opts . " "
         \ . "--output " . shellescape(l:filename) . " "
@@ -139,7 +139,7 @@ function! JupycentSavePy()  "{{{
 endfunction  "}}}
 
 function! JupycentReadIpynb()  "{{{
-  let l:output = system(g:jupycent_command
+  call system(g:jupycent_command
         \ . " --to=py:percent "
         \ . " --output " . shellescape(expand("%:p"))
         \ . " " . shellescape(b:jupycent_ipynb_file))
